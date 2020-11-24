@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}About GitGolf{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Git Clubs, Git Good, GitGolf</h1>
+        <ul>
+        <p>
+          {% for name in names %}
+
+            {% if name == 'Dave' %}
+              <li>Dave is the best!</li>
+            {% else %}
+              <li>{{ name }}</li>
+            {% endif %}
+
+          {% endfor %}
+        </ul>
+        </p>
+    </div>
+{% endblock %}
