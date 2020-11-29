@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
-{% block title%}Welcome to GitGolf {% endblock %}
+{% block title %}Welcome to GitGolf {% endblock %}
 
 {% block content %}
     <div class="container">
         <h1>GitGolf</h1>
+        <br/><br/>
+
+        <img src="{{ url_for('static', filename = 'Images/golfbackground.jpg')}}", width="600">
+        <br/><br/>
+
+        <img src="static/Images/golflogo.jpg", width="500">
+        <br/><br/>
+        
     </div>
 {% endblock %}

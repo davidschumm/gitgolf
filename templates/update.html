@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Update Friend{% endblock %}}
+{% block content %}
+    <div class="container">
+        <h1>Update Friend...</h1>
+        <br/>
+        <form action="/update/{{friend_to_update.id}}" METHOD="POST">
+          <input type="text" placeholder="Name" name="name" value="{{friend_to_update.name}}">
+          <input type="submit" value="Update Name" class="btn btn-secondary">
+        </form>
+       
+    </div>
+{% endblock %}

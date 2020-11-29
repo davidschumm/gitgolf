@@ -1,0 +1,82 @@
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 ~
+$ mkdir /c/my_flask
+
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 ~
+$ cd /c/my_flask
+
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 /c/my_flask
+$ ls
+__pycache__/  app.py  virtual/
+
+		#ls means "list stuff"?
+
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 /c/my_flask
+$ python -m venv virtual
+
+		#this makes venv in folder named virtual
+
+
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 /c/my_flask
+$ source virtual/Scripts/activate
+(virtual)
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 /c/my_flask
+$ deactivate
+
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 /c/my_flask
+$ source virtual/Scripts/activate
+(virtual)
+
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 /c/my_flask
+$ flask run
+
+#################################################
+# this is setting some enviorment variables, the flask_env tells us we are in development mode so we dont have to hit control c every time to refresh
+
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 /c/my_flask
+$ export FLASK_ENV=development
+(virtual)
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 /c/my_flask
+$ export FLASK_APP=app.py
+(virtual)
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 /c/my_flask
+$ flask run
+ * Serving Flask app "app.py" (lazy loading)
+ * Environment: development
+ * Debug mode: on
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 137-138-740
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+
+
+
+Database
+(virtual)
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 /c/my_flask (main)
+$ winpty python
+Python 3.8.5 (tags/v3.8.5:580fbb0, Jul 20 2020, 15:57:54) [MSC v.1924 64 bit (AM
+D64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from app import db
+C:\my_flask\virtual\lib\site-packages\flask_sqlalchemy\__init__.py:833: FSADepre
+cationWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will
+ be disabled by default in the future.  Set it to True or False to suppress this
+ warning.
+  warnings.warn(FSADeprecationWarning(
+>>> db.create_all()
+>>> exit()
+
+
+
+Changing git repo branch
+1) check the branches
+$ git branch
+
+2) updating entire branch
+$ git push origin main
+
+3) pulling
+$ git pull origin main
+
+
+
