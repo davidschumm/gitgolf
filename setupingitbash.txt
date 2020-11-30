@@ -78,5 +78,43 @@ $ git push origin main
 3) pulling
 $ git pull origin main
 
+4) Looking at directory
+$ ls
 
+5) look at status
+$ git status
+
+6) add all updated files and stage for commit
+$ git add .
+
+or just one file
+
+$ git add blue.html
+
+7) Commit the file to the local repository
+$ git commit -a 
+ 	
+	When entered into VIM interface, type your message,
+	hit escape, then type :wq to save the commit
+
+8) push changes to main branch
+$ git push origin main
+
+
+
+#### Heroku git setup ######
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 /c/my_flask (main)
+$ source virtual/Scripts/activate
+(virtual)
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 /c/my_flask (main)
+$ pip install gunicorn
+Collecting gunicorn
+
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 /c/my_flask (main)
+$ touch Procfile
+##lets huroku know we are using guincorn
+ 
+Luke Schumm@DESKTOP-BTCAKN0 MINGW64 /c/my_flask (main)
+$ pip freeze > requirements.txt
+# creates requirements file that lists all of the stuff we have pip installed
 
