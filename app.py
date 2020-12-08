@@ -1,12 +1,95 @@
 from flask import Flask, render_template, request, redirect
+from flask_restful import Resource, Api, reqparse
 #import smtplib
 from flask_sqlalchemy import SQLAlchemy 
 from datetime import datetime
 
 app = Flask(__name__)
+api = Api(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///friends.db'
 # Initialize the database
 db = SQLAlchemy(app)
+
+GOLFCOURSES = {
+	'1': {'name': 'Pine Hills Golf Course', 'Tee Color': 'White', 'Holes': 18, 'Course Handicap': 8, 'Course Par': 72, 'Course Rating': 68.4, 'Course Slope': 113},
+	'2': {'name': 'Pine Hills Golf Course', 'Tee Color': 'Blue', 'Holes': 18, 'Course Handicap': 10, 'Course Par': 72, 'Course Rating': 69.5, 'Course Slope': 116},
+	'3': {'name': 'Steel Canyon Golf Club', 'Tee Color': 'White', 'Holes': 18, 'Course Handicap': 9, 'Course Par': 61, 'Course Rating': 58.9, 'Course Slope': 104},
+	'4': {'name': 'Steel Canyon Golf Club', 'Tee Color': 'Black', 'Holes': 18, 'Course Handicap': 10, 'Course Par': 61, 'Course Rating': 60.2, 'Course Slope': 107},
+}
+
+parser = reqparse.RequestParser()
+
+class golfCourseList(Resource):
+	def get(self):
+		return GOLFCOURSES
+	
+	def post(self):
+		parser.add_argument("name")
+		parser.add_argument("Tee Color")
+		parser.add_argument("Holes")
+		parser.add_argument("Course Handicap")
+		parser.add_argument("Course Par")
+		parser.add_argument("Course Rating")
+		parser.add_argument("Course Slope")
+		args = parser.parse_args()
+
+		course_id = int(max(GOLFCOURSES.keys())) + 1
+		course_id = '%i' % course_id
+
+		GOLFCOURSES[course_id] = {
+		"name": args["name"],
+		"Tee Color": args["Tee Color"],
+		"Holes": args["Holes"],
+		"Course Handicap": args["Course Handicap"],
+		"Course Par": args["Course Par"],
+		"Course Rating": args["Course Rating"],
+		"Course Slope": args["Course Slope"],
+		}
+
+		return GOLFCOURSES[course_id], 201
+
+class golfCourse(Resource):
+	def get(self, course_id):
+		if course_id not in GOLFCOURSES:
+			return "Not found", 404
+		else:
+			return GOLFCOURSES[course_id]
+
+	def put(self, course_id):
+		parser.add_argument("name")
+		parser.add_argument("Tee Color")
+		parser.add_argument("Holes")
+		parser.add_argument("Course Handicap")
+		parser.add_argument("Course Par")
+		parser.add_argument("Course Rating")
+		parser.add_argument("Course Slope")
+		args = parser.parse_args()
+
+		if course_id not in GOLFCOURSES:
+			return "Record not found", 404
+
+		else:
+			course = GOLFCOURSES[course_id]
+			course['name'] = args["name"] if args["name"] is not None else student["name"]
+			course['Tee Color'] = args["Tee Color"] if args["Tee Color"] is not None else student["Tee Color"]
+			course['Holes'] = args["Holes"] if args["Holes"] is not None else student["Holes"]
+			course['Course Handicap'] = args["Course Handicap"] if args["Course Handicap"] is not None else student["Course Handicap"]
+			course['Course Par'] = args["Course Par"] if args["Course Par"] is not None else student["Course Par"]
+			course['Course Rating'] = args["Course Rating"] if args["Course Rating"] is not None else student["Course Rating"]
+			course['Course Slope'] = args["Course Slope"] if args["Course Slope"] is not None else student["Course Slope"]
+			return course, 200
+
+	def delete(self, course_id):
+		if course_id not in GOLFCOURSES:
+			return 'Not found', 404
+		else:
+			del GOLFCOURSES[course_id]
+			return '', 204
+
+api.add_resource(golfCourseList, '/courses/')
+api.add_resource(golfCourse, '/courses/<course_id>')
+
+
 
 # create db model
 class Friends(db.Model):
@@ -71,6 +154,11 @@ def friends():
 		friends = Friends.query.order_by(Friends.date_created)
 		return render_template("friends.html", title=title, friends=friends)
 
+
+@app.route('/handicap_calc')
+def handicap_calc():
+	title = "Handicap Calculator"
+	return render_template("handicap_calc.html", title=title)
 
 
 
